@@ -1,0 +1,18 @@
+{{template "base" .}}
+
+{{define "content"}}
+<form action="/search-availability" method="post">
+    <input type="hidden" name="csrf_token" value="{{.Csrf}}">
+    <div>
+        <label id="start_date">Start Date</label>
+        <input type="text" name="start_date">
+    </div>
+    <div>
+        <label id="end_date">End Date</label>
+        <input type="text" name="end_date">
+    </div>
+    <div>
+        <button type="submit">Search</button>
+    </div>
+</form>
+{{end}}

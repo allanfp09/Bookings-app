@@ -1,0 +1,5 @@
+*.yml
+docker-compose.zsh-completion
+docker.zsh-completion
+*.mod
+*.out

@@ -1,0 +1,26 @@
+{{template "base" .}}
+
+{{define "content"}}
+
+{{$data := index .Data "reservation"}}
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Room Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+    </tr>
+    <tr>
+        <td>{{$data.FirstName}}</td>
+        <td>{{$data.LastName}}</td>
+        <td>{{$data.Room.RoomName}}</td>
+        <td>{{$data.StartDate}}</td>
+        <td>{{$data.EndDate}}</td>
+        <td>{{$data.Email}}</td>
+        <td>{{$data.Phone}}</td>
+    </tr>
+</table>
+{{end}}

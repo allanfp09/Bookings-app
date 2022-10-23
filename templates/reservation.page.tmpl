@@ -1,0 +1,52 @@
+{{template "base" .}}
+
+{{define "content"}}
+{{$data := index .Data "reservation"}}
+<form action="/reservation" method="post">
+
+    <p>Room Name: {{$data.Room.RoomName}}</p>
+    <p>Arrival: {{index .StringMap "start_date"}}</p>
+    <p>Departure: {{index .StringMap "end_date"}}</p>
+
+    <div>
+        <input type="hidden" name="csrf_token" value="{{.Csrf}}">
+        <input type="hidden" name="start_date" value="{{index .StringMap "start_date"}}">
+        <input type="hidden" name="end_date" value="{{index .StringMap "end_date"}}">
+    </div>
+    <div>
+        <label id="first_name">First Name</label>
+        {{with .Forms.Errors.GetErr "first_name"}}
+        <label>{{ . }}</label>
+        {{end}}
+        <input type="text" name="first_name" value="{{$data.FirstName}}">
+    </div>
+    <div>
+        <label id="last_name">Last Name</label>
+        {{with .Forms.Errors.GetErr "last_name"}}
+        <label>{{ . }}</label>
+        {{end}}
+        <input type="text" name="last_name" value="{{$data.LastName}}">
+    </div>
+    <div>
+        <input type="hidden" name="room_id" value="{{$data.RoomID}}">
+    </div>
+    <div>
+        <label id="email">Email</label>
+        {{with .Forms.Errors.GetErr "email"}}
+        <label>{{ . }}</label>
+        {{end}}
+        <input type="text" name="email" value="{{$data.Email}}">
+    </div>
+    <div>
+        <label id="phone">Phone Number</label>
+        {{with .Forms.Errors.GetErr "phone"}}
+        <label>{{ . }}</label>
+        {{end}}
+        <input type="text" name="phone" value="{{$data.Phone}}">
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+<div><p><a href="/">Go to home page</a></p></div>
+{{end}}

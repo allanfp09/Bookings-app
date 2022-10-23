@@ -1,0 +1,12 @@
+{{template "base" .}}
+
+{{define "content"}}
+{{$rooms := index .Data "rooms"}}
+<div>
+    {{range $rooms}}
+    <ul>
+        <li><a href="/choose-room/{{.ID}}">{{.RoomName}}</a></li>
+    </ul>
+    {{end}}
+</div>
+{{end}}
