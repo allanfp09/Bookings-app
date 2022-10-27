@@ -57,16 +57,16 @@ func (repo *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sd := res.StartDate.Format("2006-01-02")
-	ed := res.EndDate.Format("2006-01-02")
-
 	room, err := repo.DB.GetRoomByID(res.RoomID)
 	if err != nil {
+		repo.App.InfoLog.Println("room id not found")
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
 
 	res.Room.RoomName = room.RoomName
+	sd := res.StartDate.Format("2006-01-02")
+	ed := res.EndDate.Format("2006-01-02")
 
 	repo.App.Sessions.Put(r.Context(), "reservation", res)
 
@@ -120,7 +120,7 @@ func (repo *Repository) PostReservation(w http.ResponseWriter, r *http.Request) 
 
 	reservationID, err := repo.DB.InsertReservation(reservation)
 	if err != nil {
-		helpers.ServerError(w, err)
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
 
@@ -133,7 +133,7 @@ func (repo *Repository) PostReservation(w http.ResponseWriter, r *http.Request) 
 	}
 	err = repo.DB.InsertRoomRestriction(restriction)
 	if err != nil {
-		helpers.ServerError(w, err)
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
 
